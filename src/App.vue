@@ -1,3 +1,3 @@
 <script setup lang="ts"></script>
 
-<template>App</template>
+<template><div class="container mx-auto">App</div></template>
