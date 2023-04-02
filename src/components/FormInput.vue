@@ -26,6 +26,6 @@ withDefaults(defineProps<Props>(), {
 
 <script lang="ts">
 export default {
-    name: 'Input',
+    name: 'FormInput',
 };
 </script>

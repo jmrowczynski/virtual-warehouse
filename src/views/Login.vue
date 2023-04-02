@@ -39,7 +39,7 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate';
 import * as Yup from 'yup';
-import Input from '../components/Input.vue';
+import Input from '../components/FormInput.vue';
 
 const schema = Yup.object().shape({
     email: Yup.string()

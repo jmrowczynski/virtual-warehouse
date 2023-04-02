@@ -22,8 +22,6 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "vue/multi-word-component-names": "warn",
-        "vue/no-reserved-component-names": "warn",
         "no-console": "error"
     }
 }
