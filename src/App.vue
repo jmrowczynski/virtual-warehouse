@@ -1,5 +1,11 @@
 <script setup lang="ts"></script>
 
 <template>
-    <div class="container mx-auto"><router-view></router-view></div>
+    <MainLayout />
 </template>
+<script>
+import MainLayout from './layouts/MainLayout.vue';
+export default {
+    components: { MainLayout },
+};
+</script>

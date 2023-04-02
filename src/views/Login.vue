@@ -40,6 +40,7 @@
 import { Form } from 'vee-validate';
 import * as Yup from 'yup';
 import Input from '../components/FormInput.vue';
+import { router } from '../router';
 
 const schema = Yup.object().shape({
     email: Yup.string()
@@ -52,6 +53,7 @@ const schema = Yup.object().shape({
 const onSubmit = (values: { email: string; password: string }) => {
     // eslint-disable-next-line no-console
     console.log(values);
+    router.push('/dashboard');
 };
 </script>
 
