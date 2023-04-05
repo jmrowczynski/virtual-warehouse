@@ -1,5 +1,5 @@
-import { axiosInstance } from '../axios';
-import { IUserLoginRequest } from '../types';
+import { IUserLoginRequest } from '@/services/api/types';
+import { axiosInstance } from '@/services/api/axios';
 
 class AuthApi {
     static login(body: IUserLoginRequest) {
