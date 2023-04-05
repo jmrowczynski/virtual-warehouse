@@ -10,7 +10,7 @@
                 v-slot="{ meta }"
             >
                 <div class="mb-4">
-                    <Input
+                    <FormInput
                         type="email"
                         name="email"
                         placeholder="example@example.com"
@@ -18,7 +18,7 @@
                     />
                 </div>
                 <div class="mb-8">
-                    <Input
+                    <FormInput
                         type="password"
                         placeholder="Hasło"
                         ariaLabel="password"
@@ -39,8 +39,8 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate';
 import * as Yup from 'yup';
-import Input from '../components/FormInput.vue';
-import { router } from '../router';
+import FormInput from '@components/FormInput.vue';
+import { router } from '@/router';
 
 const schema = Yup.object().shape({
     email: Yup.string()
