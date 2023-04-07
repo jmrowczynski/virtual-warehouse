@@ -5,7 +5,7 @@ import AuthApi from '@/services/api/connections/AuthApi';
 import { IUserLoginRequest, IUserLoginResponse } from '@/services/api/types';
 
 const useLoginMutation = (options?: IMutationOptions<IUserLoginResponse>) => {
-    return useMutation<IUserLoginRequest>(
+    return useMutation<IUserLoginRequest, IUserLoginResponse>(
         (body) => AuthApi.login(body),
         options
     );

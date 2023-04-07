@@ -1,9 +1,9 @@
-import { IUserLoginRequest } from '@/services/api/types';
+import { IUserLoginRequest, IUserLoginResponse } from '@/services/api/types';
 import { axiosInstance } from '@/services/api/axios';
 
 class AuthApi {
     static login(body: IUserLoginRequest) {
-        return axiosInstance.post('/auth/login', body);
+        return axiosInstance.post<IUserLoginResponse>('/auth/login', body);
     }
 
     static cookie() {

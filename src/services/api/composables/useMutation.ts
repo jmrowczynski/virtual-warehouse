@@ -1,17 +1,18 @@
 import { ref } from 'vue';
+import { AxiosResponse } from 'axios';
 
-export interface IMutationOptions<TData = any, TError = unknown> {
-    onSuccess?: (data: TData) => void;
+export interface IMutationOptions<TResponse = any, TError = unknown> {
+    onSuccess?: (data: AxiosResponse<TResponse>) => void;
     onError?: (error: TError) => void;
 }
 
-const useMutation = <TData = any, TResponse = any>(
-    callback: (data: TData) => Promise<TResponse>,
-    options?: IMutationOptions<TResponse>
+const useMutation = <TData = any, TResponse = any, TError = unknown>(
+    callback: (data: TData) => Promise<AxiosResponse<TResponse>>,
+    options?: IMutationOptions<TResponse, TError>
 ) => {
     const isLoading = ref(false);
     const error = ref<unknown>(undefined);
-    const response = ref<TResponse | any>(undefined);
+    const response = ref<AxiosResponse<TResponse> | any>(undefined);
 
     const mutate = async (data: TData) => {
         isLoading.value = true;
@@ -24,7 +25,7 @@ const useMutation = <TData = any, TResponse = any>(
         } catch (e) {
             error.value = e;
             if (options?.onError) {
-                options.onError(e);
+                options.onError(e as TError);
             }
         } finally {
             isLoading.value = false;
