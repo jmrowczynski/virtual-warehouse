@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Login from '../views/Login.vue';
 import Home from '../views/Home.vue';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 const routes = [
     { path: '/', component: Login },
@@ -9,6 +10,9 @@ const routes = [
         name: 'dashboard',
         components: {
             Home,
+        },
+        meta: {
+            requiresAuth: true,
         },
         children: [
             {
@@ -24,4 +28,20 @@ const routes = [
 export const router = createRouter({
     history: createWebHistory(),
     routes,
+});
+
+router.beforeEach((to, from, next) => {
+    const authStore = useAuthStore();
+    if (to.path === '/' && authStore.isLoggedIn) {
+        next('/dashboard');
+    }
+    if (to.meta.requiresAuth) {
+        if (authStore.isLoggedIn) {
+            next();
+        } else {
+            next('/');
+        }
+    } else {
+        next();
+    }
 });
