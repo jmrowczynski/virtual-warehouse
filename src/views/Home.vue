@@ -19,15 +19,30 @@
                     <router-link to="/dashboard">Strona główna</router-link>
                 </li>
                 <li class="mt-auto">
-                    <router-link to="/">Wyloguj</router-link>
+                    <button
+                        @click="authStore.logout"
+                        class="btn"
+                        :class="{ loading: authStore.isLogoutLoading }"
+                    >
+                        Wyloguj
+                    </button>
                 </li>
             </ul>
         </div>
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import { useAuthStore } from '@/stores/useAuthStore';
+
 export default {
     name: 'HomeView',
+    setup() {
+        const authStore = useAuthStore();
+
+        return {
+            authStore,
+        };
+    },
 };
 </script>

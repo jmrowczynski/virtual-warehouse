@@ -17,6 +17,7 @@ const routes = [
         children: [
             {
                 path: '',
+                name: 'home',
                 component: {
                     template: '<div></div>',
                 },
