@@ -27,7 +27,10 @@
                 </div>
                 <button
                     class="btn w-full"
-                    :class="{ 'btn-disabled': !meta.valid, loading: isLoading }"
+                    :class="{
+                        'btn-disabled': !meta.valid,
+                        loading: isLoading,
+                    }"
                 >
                     ZALOGUJ
                 </button>
@@ -41,8 +44,10 @@ import { Form } from 'vee-validate';
 import * as Yup from 'yup';
 import FormInput from '@components/FormInput.vue';
 import { router } from '@/router';
-import useLoginMutation from '@/services/api/composables/useLoginMutation';
 import { IUserLoginRequest } from '@/services/api/types';
+import { useAuthStore } from '@/stores/useAuthStore';
+import { watch } from 'vue';
+import { storeToRefs } from 'pinia';
 
 const schema = Yup.object().shape({
     email: Yup.string()
@@ -52,14 +57,17 @@ const schema = Yup.object().shape({
     password: Yup.string().required('Hasło jest wymagane').label('Hasło'),
 });
 
-const { isLoading, mutate } = useLoginMutation({
-    onSuccess() {
+const authStore = useAuthStore();
+const { isLoading, isLoggedIn } = storeToRefs(authStore);
+
+watch(isLoggedIn, () => {
+    if (isLoggedIn) {
         router.push('/dashboard');
-    },
+    }
 });
 
 const onSubmit = async (values: IUserLoginRequest) => {
-    await mutate(values);
+    await authStore.login(values);
 };
 </script>
 
