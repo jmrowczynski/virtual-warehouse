@@ -20,9 +20,9 @@
                 </li>
                 <li class="mt-auto">
                     <button
-                        @click="authStore.logout"
+                        @click="logout"
                         class="btn"
-                        :class="{ loading: authStore.isLogoutLoading }"
+                        :class="{ loading: isLoading }"
                     >
                         Wyloguj
                     </button>
@@ -33,15 +33,25 @@
 </template>
 
 <script lang="ts">
-import { useAuthStore } from '@/stores/useAuthStore';
+import useLogoutMutation from '@/services/api/composables/useLogoutMutation';
+import { router } from '@/router';
 
 export default {
     name: 'HomeView',
     setup() {
-        const authStore = useAuthStore();
+        const { mutate: logout, isLoading } = useLogoutMutation();
+
+        const handleLogout = () => {
+            logout(undefined, {
+                onSuccess() {
+                    router.push('/');
+                },
+            });
+        };
 
         return {
-            authStore,
+            logout: handleLogout,
+            isLoading,
         };
     },
 };

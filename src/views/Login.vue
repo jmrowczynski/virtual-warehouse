@@ -45,9 +45,7 @@ import * as Yup from 'yup';
 import FormInput from '@components/FormInput.vue';
 import { router } from '@/router';
 import { IUserLoginRequest } from '@/services/api/types';
-import { useAuthStore } from '@/stores/useAuthStore';
-import { watch } from 'vue';
-import { storeToRefs } from 'pinia';
+import useLoginMutation from '@/services/api/composables/useLoginMutation';
 
 const schema = Yup.object().shape({
     email: Yup.string()
@@ -57,17 +55,14 @@ const schema = Yup.object().shape({
     password: Yup.string().required('Hasło jest wymagane').label('Hasło'),
 });
 
-const authStore = useAuthStore();
-const { isLoading, isLoggedIn } = storeToRefs(authStore);
+const { isLoading, mutate: login } = useLoginMutation();
 
-watch(isLoggedIn, () => {
-    if (isLoggedIn) {
-        router.push('/dashboard');
-    }
-});
-
-const onSubmit = async (values: IUserLoginRequest) => {
-    await authStore.login(values);
+const onSubmit = (values: IUserLoginRequest) => {
+    login(values, {
+        onSuccess() {
+            router.push('/dashboard');
+        },
+    });
 };
 </script>
 
