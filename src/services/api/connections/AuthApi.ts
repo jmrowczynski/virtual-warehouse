@@ -15,6 +15,10 @@ class AuthApi {
     static logout() {
         return axiosInstance.post('/auth/logout');
     }
+
+    static user() {
+        return axiosInstance.get('/user');
+    }
 }
 
 export default AuthApi;
