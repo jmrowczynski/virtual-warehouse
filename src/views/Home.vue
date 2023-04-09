@@ -14,14 +14,14 @@
         </div>
         <div class="drawer-side">
             <label for="my-drawer" class="drawer-overlay"></label>
-            <ul class="menu p-4 w-80 bg-base-300 text-base-content">
+            <ul class="menu p-4 w-80 bg-base-300">
                 <li>
                     <router-link to="/dashboard">Strona główna</router-link>
                 </li>
                 <li class="mt-auto">
                     <button
                         @click="logout"
-                        class="btn"
+                        class="btn text-white"
                         :class="{ loading: isLoading }"
                     >
                         Wyloguj
