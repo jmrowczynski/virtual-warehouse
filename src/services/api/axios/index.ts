@@ -1,5 +1,7 @@
 import axios from 'axios';
 import AuthApi from '@/services/api/connections/AuthApi';
+import { router } from '@/router';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 const config = {
     baseURL: import.meta.env.VITE_APP_API_URL,
@@ -18,6 +20,12 @@ axiosInstance.interceptors.response.use(
             await AuthApi.cookie();
 
             return axiosInstance.request(error.config);
+        }
+
+        if (error.response.status === 401) {
+            const authStore = useAuthStore();
+            authStore.removeUser();
+            await router.push('/');
         }
 
         return Promise.reject(error);
