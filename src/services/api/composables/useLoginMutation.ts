@@ -1,5 +1,8 @@
 import AuthApi from '@/services/api/connections/AuthApi';
-import { IUser, IUserLoginRequest } from '@/services/api/types';
+import {
+    IUserLoginRequest,
+    IUserLoginResponse,
+} from '@/services/api/types/user';
 import {
     useMutation,
     UseMutationOptions,
@@ -8,16 +11,20 @@ import {
 import { useAuthStore } from '@/stores/useAuthStore';
 
 const useLoginMutation = (
-    options?: UseMutationOptions<any, unknown, IUserLoginRequest, unknown>
+    options?: UseMutationOptions<
+        IUserLoginResponse,
+        unknown,
+        IUserLoginRequest,
+        unknown
+    >
 ) => {
     const queryClient = useQueryClient();
     const authStore = useAuthStore();
     return useMutation({
         ...options,
         onSuccess(data) {
-            const user = data.data.user as IUser;
-            authStore.setUser(user);
-            queryClient.setQueryData(['user'], user);
+            authStore.setUser(data.user);
+            queryClient.setQueryData(['user'], data.user);
         },
         mutationFn: (body) => AuthApi.login(body),
     });

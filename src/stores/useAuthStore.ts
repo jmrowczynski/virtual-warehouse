@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { IUser } from '@/services/api/types';
+import { IUser } from '@/services/api/types/user';
 import { StorageSerializers, useLocalStorage } from '@vueuse/core';
 
 export const useAuthStore = defineStore('auth', {
