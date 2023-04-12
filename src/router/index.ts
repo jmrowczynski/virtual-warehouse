@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Login from '../views/Login.vue';
 import Home from '../views/Home.vue';
 import { useAuthStore } from '@/stores/useAuthStore';
+import ProductsTable from '@components/ProductsTable.vue';
 
 const routes = [
     { path: '/', component: Login },
@@ -18,9 +19,7 @@ const routes = [
             {
                 path: '',
                 name: 'home',
-                component: {
-                    template: '<div></div>',
-                },
+                component: ProductsTable,
             },
         ],
     },
