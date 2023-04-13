@@ -2,7 +2,7 @@
     <span v-if="isLoading">Loading...</span>
 
     <div class="overflow-x-auto" v-else-if="!!data">
-        <table class="table w-full">
+        <table class="table w-full mb-4">
             <thead>
                 <tr>
                     <th>Nazwa</th>
@@ -20,11 +20,26 @@
                 </tr>
             </tbody>
         </table>
+        <div class="flex items-center justify-center">
+            <PaginationWrapper
+                :totalPages="data.last_page"
+                :currentPage="params.page"
+                @changePage="onChangePage"
+            />
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import useProductsQuery from '@/services/api/composables/useProductsQuery';
+import PaginationWrapper from '@components/Pagination.vue';
+import { reactive } from 'vue';
+import { IProductsParams } from '@/services/api/types/product';
 
-const { isLoading, data } = useProductsQuery();
+const params = reactive<IProductsParams>({ page: 1 });
+const { isLoading, data } = useProductsQuery(params);
+
+const onChangePage = (page: number) => {
+    params.page = page;
+};
 </script>
