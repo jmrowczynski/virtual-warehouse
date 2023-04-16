@@ -31,4 +31,8 @@ export interface Link {
 
 export interface IProductsParams {
     page?: number;
+    name?: string;
+    price_min?: number;
+    price_max?: number;
+    order_by?: 'name' | 'quantity_min' | 'quantity_max';
 }
