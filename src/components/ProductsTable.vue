@@ -77,20 +77,26 @@ const onChangePage = (page: number) => {
     params.page = page;
 };
 
-const onNameChange = useDebounceFn((value) => {
+const onNameChange = useDebounceFn((value: IProductsParams['name']) => {
     params.name = value;
     params.page = 1;
 }, 600);
 
-const onPriceMinChange = useDebounceFn((value) => {
-    params.price_min = value;
-    params.page = 1;
-}, 600);
+const onPriceMinChange = useDebounceFn(
+    (value: IProductsParams['price_min']) => {
+        params.price_min = value;
+        params.page = 1;
+    },
+    600
+);
 
-const onPriceMaxChange = useDebounceFn((value) => {
-    params.price_max = value;
-    params.page = 1;
-}, 600);
+const onPriceMaxChange = useDebounceFn(
+    (value: IProductsParams['price_max']) => {
+        params.price_max = value;
+        params.page = 1;
+    },
+    600
+);
 
 const onSortChange = (value: IProductsParams['order_by']) => {
     params.order_by = value;
