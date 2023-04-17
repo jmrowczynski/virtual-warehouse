@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Login from '../views/Login.vue';
-import Home from '../views/Home.vue';
+import Login from '@/views/Login.vue';
+import Home from '@/views/Home.vue';
 import { useAuthStore } from '@/stores/useAuthStore';
-import ProductsTable from '@components/ProductsTable.vue';
+import ProductsTable from '@components/ProductsTable/ProductsTable.vue';
 
 const routes = [
     { path: '/', component: Login },
