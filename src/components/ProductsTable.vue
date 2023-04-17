@@ -13,6 +13,15 @@
             @onChange="onPriceMaxChange"
             type="number"
         />
+        <SelectFilter
+            placeholder="Alfabetycznie"
+            :items="[
+                { label: 'Alfabetycznie', value: 'name' },
+                { label: 'Ilość: od najmniejszej', value: 'quantity_min' },
+                { label: 'Ilość: od największej', value: 'quantity_max' },
+            ]"
+            @onChange="onSortChange"
+        />
     </div>
 
     <span v-if="isLoading">Loading...</span>
@@ -53,6 +62,7 @@ import { reactive } from 'vue';
 import { IProductsParams } from '@/services/api/types/product';
 import InputFilter from '@components/Filters/InputFilter.vue';
 import { useDebounceFn } from '@vueuse/core';
+import SelectFilter from '@components/Filters/SelectFilter.vue';
 
 const params = reactive<IProductsParams>({
     page: 1,
@@ -69,13 +79,20 @@ const onChangePage = (page: number) => {
 
 const onNameChange = useDebounceFn((value) => {
     params.name = value;
+    params.page = 1;
 }, 600);
 
 const onPriceMinChange = useDebounceFn((value) => {
     params.price_min = value;
+    params.page = 1;
 }, 600);
 
 const onPriceMaxChange = useDebounceFn((value) => {
     params.price_max = value;
+    params.page = 1;
 }, 600);
+
+const onSortChange = (value: IProductsParams['order_by']) => {
+    params.order_by = value;
+};
 </script>
