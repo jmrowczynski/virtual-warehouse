@@ -1,6 +1,6 @@
 <template>
     <input
-        class="input input-bordered input-primary w-full"
+        class="input input-bordered w-full"
         :type="type"
         :placeholder="placeholder"
         :aria-label="ariaLabel"

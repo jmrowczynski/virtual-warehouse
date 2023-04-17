@@ -2,7 +2,7 @@
     <div class="dropdown">
         <label
             tabindex="0"
-            class="input input-bordered input-primary w-full flex items-center cursor-pointer"
+            class="input input-bordered w-full flex items-center cursor-pointer"
             :class="{ 'text-gray-400': !label }"
         >
             {{ label || placeholder }}
