@@ -3,7 +3,12 @@
         <TableFilters />
     </div>
 
-    <span v-if="isLoading">Loading...</span>
+    <button class="btn text-gray-400 mb-4">
+        Dodaj produkt
+        <AddIcon width="20" height="20" class="ml-2" />
+    </button>
+
+    <div v-if="isLoading">Loading...</div>
 
     <div class="overflow-x-auto" v-else-if="!!data">
         <div class="mb-4">
@@ -25,6 +30,7 @@ import PaginationWrapper from '@components/Pagination.vue';
 import TableFilters from '@components/ProductsTable/TableFilters.vue';
 import { userProductsStore } from '@/stores/useProductsStore';
 import TableView from '@components/ProductsTable/TableView.vue';
+import AddIcon from '@assets/icons/plus.svg';
 
 const productsStore = userProductsStore();
 const { isLoading, data } = useProductsQuery(productsStore);
