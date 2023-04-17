@@ -1,27 +1,6 @@
 <template>
     <div class="mb-8 grid md:grid-cols-3 gap-2">
-        <InputFilter name="name" placeholder="Nazwa" @onChange="onNameChange" />
-        <InputFilter
-            name="price_min"
-            placeholder="Cena min"
-            @onChange="onPriceMinChange"
-            type="number"
-        />
-        <InputFilter
-            name="price_max"
-            placeholder="Cena max"
-            @onChange="onPriceMaxChange"
-            type="number"
-        />
-        <SelectFilter
-            placeholder="Alfabetycznie"
-            :items="[
-                { label: 'Alfabetycznie', value: 'name' },
-                { label: 'Ilość: od najmniejszej', value: 'quantity_min' },
-                { label: 'Ilość: od największej', value: 'quantity_max' },
-            ]"
-            @onChange="onSortChange"
-        />
+        <TableFilters />
     </div>
 
     <span v-if="isLoading">Loading...</span>
@@ -48,7 +27,7 @@
         <div class="flex items-center justify-center">
             <PaginationWrapper
                 :totalPages="data.last_page"
-                :currentPage="params.page"
+                :currentPage="productsStore.page"
                 @changePage="onChangePage"
             />
         </div>
@@ -58,47 +37,13 @@
 <script setup lang="ts">
 import useProductsQuery from '@/services/api/composables/useProductsQuery';
 import PaginationWrapper from '@components/Pagination.vue';
-import { reactive } from 'vue';
-import { IProductsParams } from '@/services/api/types/product';
-import InputFilter from '@components/Filters/InputFilter.vue';
-import { useDebounceFn } from '@vueuse/core';
-import SelectFilter from '@components/Filters/SelectFilter.vue';
+import TableFilters from '@components/ProductsTable/TableFilters.vue';
+import { userProductsStore } from '@/stores/useProductsStore';
 
-const params = reactive<IProductsParams>({
-    page: 1,
-    name: '',
-    price_min: undefined,
-    price_max: undefined,
-    order_by: 'name',
-});
-const { isLoading, data } = useProductsQuery(params);
+const productsStore = userProductsStore();
+const { isLoading, data } = useProductsQuery(productsStore);
 
 const onChangePage = (page: number) => {
-    params.page = page;
-};
-
-const onNameChange = useDebounceFn((value: IProductsParams['name']) => {
-    params.name = value;
-    params.page = 1;
-}, 600);
-
-const onPriceMinChange = useDebounceFn(
-    (value: IProductsParams['price_min']) => {
-        params.price_min = value;
-        params.page = 1;
-    },
-    600
-);
-
-const onPriceMaxChange = useDebounceFn(
-    (value: IProductsParams['price_max']) => {
-        params.price_max = value;
-        params.page = 1;
-    },
-    600
-);
-
-const onSortChange = (value: IProductsParams['order_by']) => {
-    params.order_by = value;
+    productsStore.setPage(page);
 };
 </script>
