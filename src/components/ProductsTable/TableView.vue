@@ -21,6 +21,12 @@
                     >
                         <PencilIcon width="20" height="20" />
                     </button>
+                    <button
+                        class="text-info hover:text-opacity-80"
+                        title="Szczegóły produktu"
+                    >
+                        <LinkIcon width="16" height="16" />
+                    </button>
                 </div>
             </td>
         </tr>
@@ -32,6 +38,7 @@ import { IProductsResponse } from '@/services/api/types/product';
 import TableComponent from '@components/TableComponent/TableComponent.vue';
 import TrashIcon from '@assets/icons/trash.svg';
 import PencilIcon from '@assets/icons/pencil.svg';
+import LinkIcon from '@assets/icons/link.svg';
 
 defineProps<{ data: IProductsResponse['data'] }>();
 </script>
