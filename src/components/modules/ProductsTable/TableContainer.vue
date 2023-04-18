@@ -26,10 +26,10 @@
 
 <script setup lang="ts">
 import useProductsQuery from '@/services/api/composables/useProductsQuery';
-import PaginationWrapper from '@components/Pagination.vue';
-import TableFilters from '@components/ProductsTable/TableFilters.vue';
+import PaginationWrapper from '@components/views/Pagination.vue';
+import TableFilters from '@components/modules/ProductsTable/TableFilters.vue';
 import { userProductsStore } from '@/stores/useProductsStore';
-import TableView from '@components/ProductsTable/TableView.vue';
+import TableView from '@components/modules/ProductsTable/TableView.vue';
 import AddIcon from '@assets/icons/plus.svg';
 
 const productsStore = userProductsStore();

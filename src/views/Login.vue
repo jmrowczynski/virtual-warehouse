@@ -42,7 +42,7 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate';
 import * as Yup from 'yup';
-import FormInput from '@components/Form/FormInput.vue';
+import FormInput from '@components/views/Form/FormInput.vue';
 import { router } from '@/router';
 import { IUserLoginRequest } from '@/services/api/types/user';
 import useLoginMutation from '@/services/api/composables/useLoginMutation';

@@ -27,8 +27,8 @@
 import { useDebounceFn } from '@vueuse/core';
 import { IProductsParams } from '@/services/api/types/product';
 import { userProductsStore } from '@/stores/useProductsStore';
-import InputFilter from '@components/Filters/InputFilter.vue';
-import SelectFilter from '@components/Filters/SelectFilter.vue';
+import InputFilter from '@components/views/Filters/InputFilter.vue';
+import SelectFilter from '@components/views/Filters/SelectFilter.vue';
 
 const productsStore = userProductsStore();
 

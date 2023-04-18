@@ -42,7 +42,7 @@
 
 <script setup lang="ts">
 import { IProduct, IProductsResponse } from '@/services/api/types/product';
-import TableComponent from '@components/TableComponent/TableComponent.vue';
+import TableComponent from '@components/views/TableComponent.vue';
 import TrashIcon from '@assets/icons/trash.svg';
 import PencilIcon from '@assets/icons/pencil.svg';
 import LinkIcon from '@assets/icons/link.svg';
