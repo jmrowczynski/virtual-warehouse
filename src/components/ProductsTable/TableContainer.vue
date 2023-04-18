@@ -3,7 +3,7 @@
         <TableFilters />
     </div>
 
-    <button class="btn text-gray-400 mb-4">
+    <button class="btn text-white mb-4">
         Dodaj produkt
         <AddIcon width="20" height="20" class="ml-2" />
     </button>
