@@ -21,12 +21,12 @@ const useLoginMutation = (
     const queryClient = useQueryClient();
     const authStore = useAuthStore();
     return useMutation({
-        ...options,
         onSuccess(data) {
             authStore.setUser(data.user);
             queryClient.setQueryData(['user'], data.user);
         },
         mutationFn: (body) => AuthApi.login(body),
+        ...options,
     });
 };
 
