@@ -12,6 +12,7 @@
                     <button
                         class="text-error hover:text-opacity-80"
                         title="Usuń produkt"
+                        @click="() => onRemoveClick(item)"
                     >
                         <TrashIcon width="20" height="20" />
                     </button>
@@ -31,16 +32,37 @@
             </td>
         </tr>
     </TableComponent>
+    <ModalView
+        :isOpen="isModalOpen && !!activeItem"
+        :title="`Usuwanie ${activeItem?.name}`"
+        :description="`Czy na pewno chcesz usunąć <strong>${activeItem?.name}</strong>?`"
+        @onCloseModal="onCloseModal"
+    />
 </template>
 
 <script setup lang="ts">
-import { IProductsResponse } from '@/services/api/types/product';
+import { IProduct, IProductsResponse } from '@/services/api/types/product';
 import TableComponent from '@components/TableComponent/TableComponent.vue';
 import TrashIcon from '@assets/icons/trash.svg';
 import PencilIcon from '@assets/icons/pencil.svg';
 import LinkIcon from '@assets/icons/link.svg';
+import { ref } from 'vue';
+import ModalView from '@components/views/ModalView.vue';
+
+const isModalOpen = ref(false);
+const activeItem = ref<IProduct | null>(null);
 
 defineProps<{ data: IProductsResponse['data'] }>();
+
+const onRemoveClick = (value: IProduct) => {
+    isModalOpen.value = true;
+    activeItem.value = value;
+};
+
+const onCloseModal = () => {
+    isModalOpen.value = false;
+    activeItem.value = null;
+};
 </script>
 
 <script lang="ts">
