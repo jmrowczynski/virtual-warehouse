@@ -8,13 +8,25 @@
                 >
                     ✕
                 </button>
-                <h2 class="text-lg font-bold mb-4">
+                <h2 class="text-2xl font-bold mb-4">
                     {{ title }}
                 </h2>
                 <p class="mb-4" v-if="description" v-html="description"></p>
                 <footer class="flex gap-2 justify-end">
-                    <button class="btn" @click="onCloseModal">Nie</button>
-                    <button class="btn btn-error">Tak</button>
+                    <button
+                        class="btn"
+                        :class="{ 'btn-disabled': isLoading }"
+                        @click="onCloseModal"
+                    >
+                        Nie
+                    </button>
+                    <button
+                        class="btn btn-error"
+                        :class="{ loading: isLoading }"
+                        @click="onAccept"
+                    >
+                        Tak
+                    </button>
                 </footer>
             </div>
         </div>
@@ -29,14 +41,19 @@ interface Props {
     title: string;
     description?: string;
     isOpen: boolean;
+    isLoading: boolean;
 }
 defineProps<Props>();
 
 const modalBoxRef = ref(null);
 
-const emit = defineEmits<{ (e: 'onCloseModal'): void }>();
+const emit = defineEmits<{
+    (e: 'onCloseModal'): void;
+    (e: 'onAccept'): void;
+}>();
 
 const onCloseModal = () => emit('onCloseModal');
+const onAccept = () => emit('onAccept');
 
 onClickOutside(modalBoxRef, onCloseModal);
 </script>

@@ -12,7 +12,7 @@
                     <button
                         class="text-error hover:text-opacity-80"
                         title="Usuń produkt"
-                        @click="() => onRemoveClick(item)"
+                        @click="() => handleRemoveClick(item)"
                     >
                         <TrashIcon width="20" height="20" />
                     </button>
@@ -36,7 +36,9 @@
         :isOpen="isModalOpen && !!activeItem"
         :title="`Usuwanie ${activeItem?.name}`"
         :description="`Czy na pewno chcesz usunąć <strong>${activeItem?.name}</strong>?`"
-        @onCloseModal="onCloseModal"
+        :isLoading="isLoading"
+        @onCloseModal="handleCloseModal"
+        @onAccept="handleRemove"
     />
 </template>
 
@@ -48,20 +50,33 @@ import PencilIcon from '@assets/icons/pencil.svg';
 import LinkIcon from '@assets/icons/link.svg';
 import { ref } from 'vue';
 import ModalView from '@components/views/ModalView.vue';
+import useProductDelete from '@/services/api/composables/useProductDelete';
 
 const isModalOpen = ref(false);
 const activeItem = ref<IProduct | null>(null);
 
 defineProps<{ data: IProductsResponse['data'] }>();
 
-const onRemoveClick = (value: IProduct) => {
+const { mutate, isLoading } = useProductDelete();
+
+const handleRemoveClick = (value: IProduct) => {
     isModalOpen.value = true;
     activeItem.value = value;
 };
 
-const onCloseModal = () => {
+const handleCloseModal = () => {
     isModalOpen.value = false;
     activeItem.value = null;
+};
+
+const handleRemove = () => {
+    if (activeItem.value) {
+        mutate(activeItem.value.id, {
+            onSuccess() {
+                handleCloseModal();
+            },
+        });
+    }
 };
 </script>
 
