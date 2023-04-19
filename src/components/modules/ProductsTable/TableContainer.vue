@@ -8,7 +8,7 @@
         <AddIcon width="20" height="20" class="ml-2" />
     </button>
 
-    <div v-if="isLoading">Loading...</div>
+    <div v-if="isLoading">Ładowanie...</div>
 
     <div class="overflow-x-auto" v-else-if="!!data">
         <div class="mb-4">
