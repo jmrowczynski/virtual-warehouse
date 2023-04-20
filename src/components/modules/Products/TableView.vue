@@ -66,7 +66,6 @@ const handleRemoveClick = (value: IProduct) => {
 
 const handleCloseModal = () => {
     isModalOpen.value = false;
-    activeItem.value = null;
 };
 
 const handleRemove = () => {
