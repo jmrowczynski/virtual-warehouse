@@ -57,7 +57,7 @@ const activeItem = ref<IProduct | null>(null);
 
 defineProps<{ data: IProductsResponse['data'] }>();
 
-const { mutate, isLoading } = useProductDelete();
+const { mutate: removeProduct, isLoading } = useProductDelete();
 
 const handleRemoveClick = (value: IProduct) => {
     isModalOpen.value = true;
@@ -70,7 +70,7 @@ const handleCloseModal = () => {
 
 const handleRemove = () => {
     if (activeItem.value) {
-        mutate(activeItem.value.id, {
+        removeProduct(activeItem.value.id, {
             onSuccess() {
                 handleCloseModal();
             },
