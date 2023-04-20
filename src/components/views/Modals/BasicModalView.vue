@@ -60,6 +60,6 @@ onClickOutside(modalBoxRef, onCloseModal);
 
 <script lang="ts">
 export default {
-    name: 'ModalView',
+    name: 'BasicModalView',
 };
 </script>

@@ -32,7 +32,7 @@
             </td>
         </tr>
     </TableComponent>
-    <ModalView
+    <BasicModalView
         :isOpen="isModalOpen && !!activeItem"
         :title="`Usuwanie ${activeItem?.name}`"
         :description="`Czy na pewno chcesz usunąć <strong>${activeItem?.name}</strong>?`"
@@ -49,7 +49,7 @@ import TrashIcon from '@assets/icons/trash.svg';
 import PencilIcon from '@assets/icons/pencil.svg';
 import LinkIcon from '@assets/icons/link.svg';
 import { ref } from 'vue';
-import ModalView from '@components/views/ModalView.vue';
+import BasicModalView from '@components/views/Modals/BasicModalView.vue';
 import useProductDelete from '@/services/api/composables/useProductDelete';
 
 const isModalOpen = ref(false);
