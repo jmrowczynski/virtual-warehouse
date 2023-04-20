@@ -36,3 +36,9 @@ export interface IProductsParams {
     price_max?: number;
     order_by?: 'name' | 'quantity_min' | 'quantity_max';
 }
+
+export interface ICreateProductBody {
+    name: string;
+    price: number;
+    quantity: number;
+}

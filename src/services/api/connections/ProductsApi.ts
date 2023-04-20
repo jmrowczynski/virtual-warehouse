@@ -1,5 +1,6 @@
 import { axiosInstance } from '@/services/api/axios';
 import {
+    ICreateProductBody,
     IProduct,
     IProductsParams,
     IProductsResponse,
@@ -15,6 +16,12 @@ class ProductsApi {
     static delete(id: IProduct['id']): Promise<any> {
         return axiosInstance
             .delete(`/products/${id}`)
+            .then((response) => response.data);
+    }
+
+    static create(body: ICreateProductBody): Promise<IProduct> {
+        return axiosInstance
+            .post(`/products`, body)
             .then((response) => response.data);
     }
 }
