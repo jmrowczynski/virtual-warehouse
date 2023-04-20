@@ -1,19 +1,24 @@
 <template>
-    <ModalView :isOpen="isOpen" title="Dodaj produkt">
-        <Form v-slot="{ meta }" :validation-schema="schema">
+    <ModalView
+        :isOpen="store.isCreateProductModalOpen"
+        @onCloseModal="store.closeCreateProductModal()"
+        title="Dodaj produkt"
+    >
+        <Form v-slot="{ meta }" :validation-schema="schema" @submit="onSubmit">
             <div class="mb-4">
                 <FormInput name="name" placeholder="Nazwa" />
             </div>
             <div class="mb-4">
-                <FormInput name="price" placeholder="Cena" />
+                <FormInput name="price" placeholder="Cena" type="number" />
             </div>
             <div class="mb-8">
-                <FormInput name="quantity" placeholder="Ilość" />
+                <FormInput name="quantity" placeholder="Ilość" type="number" />
             </div>
             <button
                 class="btn w-full"
                 :class="{
                     'btn-disabled': !meta.valid,
+                    loading: isLoading,
                 }"
             >
                 DODAJ
@@ -25,10 +30,11 @@
 <script setup lang="ts">
 import ModalView from '@components/views/Modals/ModalView.vue';
 import FormInput from '@components/views/Form/FormInput.vue';
-import { Form } from 'vee-validate';
+import { Form, FormActions } from 'vee-validate';
 import * as Yup from 'yup';
-
-defineProps<{ isOpen: boolean }>();
+import useProductCreate from '@/services/api/composables/useProductCreate';
+import { ICreateProductBody } from '@/services/api/types/product';
+import { store } from '@components/modules/Products/store';
 
 const schema = Yup.object().shape({
     name: Yup.string()
@@ -45,6 +51,20 @@ const schema = Yup.object().shape({
         .min(0, 'Ilość musi wynosić minimum 0')
         .label('Ilość'),
 });
+
+const { isLoading, mutate: createProduct } = useProductCreate();
+
+const onSubmit = (
+    values: ICreateProductBody,
+    { resetForm }: FormActions<ICreateProductBody>
+) => {
+    createProduct(values, {
+        onSuccess() {
+            store.closeCreateProductModal();
+            resetForm();
+        },
+    });
+};
 </script>
 
 <script lang="ts">
