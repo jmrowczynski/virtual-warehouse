@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { IProductsParams } from '@/services/api/types/product';
 
-export const userProductsStore = defineStore('products', {
+export const useProductsFiltersStore = defineStore('productsFilters', {
     state: (): IProductsParams => {
         return {
             page: 1,
