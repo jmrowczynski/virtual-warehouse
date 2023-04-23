@@ -5,6 +5,7 @@
         :placeholder="placeholder"
         :aria-label="ariaLabel"
         :name="name"
+        :value="initValue"
     />
     <ErrorMessage :name="name" class="text-error inline-block mt-1" />
 </template>
@@ -17,6 +18,7 @@ interface Props {
     placeholder?: string;
     ariaLabel?: string;
     name: string;
+    initValue?: string | number;
 }
 
 withDefaults(defineProps<Props>(), {

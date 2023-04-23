@@ -2,7 +2,7 @@ import { reactive } from 'vue';
 import { IProduct } from '@/services/api/types/product';
 
 interface Store {
-    isCreateProductModalOpen: boolean;
+    isModifyProductModalOpen: boolean;
     isRemoveProductModalOpen: boolean;
     activeProduct?: IProduct;
     openModifyProductModal: () => void;
@@ -13,14 +13,14 @@ interface Store {
 }
 
 export const store = reactive<Store>({
-    isCreateProductModalOpen: false,
+    isModifyProductModalOpen: false,
     isRemoveProductModalOpen: false,
     activeProduct: undefined,
     openModifyProductModal() {
-        this.isCreateProductModalOpen = true;
+        this.isModifyProductModalOpen = true;
     },
     closeModifyProductModal() {
-        this.isCreateProductModalOpen = false;
+        this.isModifyProductModalOpen = false;
     },
     openRemoveProductModal() {
         this.isRemoveProductModalOpen = true;

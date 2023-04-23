@@ -1,10 +1,15 @@
 <template>
     <ModalView
-        :isOpen="store.isCreateProductModalOpen"
+        :isOpen="store.isModifyProductModalOpen"
         @onCloseModal="store.closeModifyProductModal()"
         :title="`${store.activeProduct ? 'Edytuj' : 'Dodaj'} produkt`"
     >
-        <Form v-slot="{ meta }" :validation-schema="schema" @submit="onSubmit">
+        <Form
+            v-slot="{ meta }"
+            :validation-schema="schema"
+            @submit="onSubmit"
+            :initial-values="store.activeProduct"
+        >
             <div class="mb-4">
                 <FormInput name="name" placeholder="Nazwa" />
             </div>
