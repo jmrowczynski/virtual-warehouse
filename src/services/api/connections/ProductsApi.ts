@@ -4,6 +4,7 @@ import {
     IProduct,
     IProductsParams,
     IProductsResponse,
+    IUpdateProductBody,
 } from '@/services/api/types/product';
 
 class ProductsApi {
@@ -22,6 +23,15 @@ class ProductsApi {
     static create(body: ICreateProductBody): Promise<IProduct> {
         return axiosInstance
             .post(`/products`, body)
+            .then((response) => response.data);
+    }
+
+    static update(
+        id: IProduct['id'],
+        body: IUpdateProductBody
+    ): Promise<IProduct> {
+        return axiosInstance
+            .put(`/products/${id}`, body)
             .then((response) => response.data);
     }
 }

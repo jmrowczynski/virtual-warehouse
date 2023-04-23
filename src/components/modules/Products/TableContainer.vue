@@ -3,7 +3,7 @@
         <TableFilters />
     </div>
 
-    <button class="btn text-white mb-4" @click="store.openCreateProductModal()">
+    <button class="btn text-white mb-4" @click="handleAddProductModalOpen">
         Dodaj produkt
         <AddIcon width="20" height="20" class="ml-2" />
     </button>
@@ -40,5 +40,10 @@ const { isLoading, data } = useProductsQuery(productsStore);
 
 const onChangePage = (page: number) => {
     productsStore.setPage(page);
+};
+
+const handleAddProductModalOpen = () => {
+    store.setActiveProduct();
+    store.openModifyProductModal();
 };
 </script>

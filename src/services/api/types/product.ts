@@ -42,3 +42,5 @@ export interface ICreateProductBody {
     price: number;
     quantity: number;
 }
+
+export type IUpdateProductBody = Partial<ICreateProductBody>;

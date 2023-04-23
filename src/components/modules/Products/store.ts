@@ -5,21 +5,21 @@ interface Store {
     isCreateProductModalOpen: boolean;
     isRemoveProductModalOpen: boolean;
     activeProduct?: IProduct;
-    openCreateProductModal: () => void;
-    closeCreateProductModal: () => void;
+    openModifyProductModal: () => void;
+    closeModifyProductModal: () => void;
     openRemoveProductModal: () => void;
     closeRemoveProductModal: () => void;
-    setActiveProduct: (product: IProduct) => void;
+    setActiveProduct: (product?: IProduct) => void;
 }
 
 export const store = reactive<Store>({
     isCreateProductModalOpen: false,
     isRemoveProductModalOpen: false,
     activeProduct: undefined,
-    openCreateProductModal() {
+    openModifyProductModal() {
         this.isCreateProductModalOpen = true;
     },
-    closeCreateProductModal() {
+    closeModifyProductModal() {
         this.isCreateProductModalOpen = false;
     },
     openRemoveProductModal() {
@@ -28,7 +28,7 @@ export const store = reactive<Store>({
     closeRemoveProductModal() {
         this.isRemoveProductModalOpen = false;
     },
-    setActiveProduct(product: IProduct) {
+    setActiveProduct(product?: IProduct) {
         this.activeProduct = product;
     },
 });

@@ -19,6 +19,7 @@
                     <button
                         class="text-accent hover:text-opacity-80"
                         title="Edytuj produkt"
+                        @click="() => handleUpdateClick(item)"
                     >
                         <PencilIcon width="20" height="20" />
                     </button>
@@ -59,6 +60,11 @@ const { mutate: removeProduct, isLoading } = useProductDelete();
 const handleRemoveClick = (value: IProduct) => {
     store.setActiveProduct(value);
     store.openRemoveProductModal();
+};
+
+const handleUpdateClick = (value: IProduct) => {
+    store.setActiveProduct(value);
+    store.openModifyProductModal();
 };
 
 const handleCloseModal = () => {

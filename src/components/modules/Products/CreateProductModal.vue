@@ -1,8 +1,8 @@
 <template>
     <ModalView
         :isOpen="store.isCreateProductModalOpen"
-        @onCloseModal="store.closeCreateProductModal()"
-        title="Dodaj produkt"
+        @onCloseModal="store.closeModifyProductModal()"
+        :title="`${store.activeProduct ? 'Edytuj' : 'Dodaj'} produkt`"
     >
         <Form v-slot="{ meta }" :validation-schema="schema" @submit="onSubmit">
             <div class="mb-4">
@@ -18,10 +18,10 @@
                 class="btn w-full"
                 :class="{
                     'btn-disabled': !meta.valid,
-                    loading: isLoading,
+                    loading: isCreateLoading || isUpdateLoading,
                 }"
             >
-                DODAJ
+                {{ store.activeProduct ? 'Zapisz' : 'Dodaj' }}
             </button>
         </Form>
     </ModalView>
@@ -35,6 +35,7 @@ import * as Yup from 'yup';
 import useProductCreate from '@/services/api/composables/useProductCreate';
 import { ICreateProductBody } from '@/services/api/types/product';
 import { store } from '@components/modules/Products/store';
+import useProductUpdate from '@/services/api/composables/useProductUpdate';
 
 const schema = Yup.object().shape({
     name: Yup.string()
@@ -52,18 +53,33 @@ const schema = Yup.object().shape({
         .label('Ilość'),
 });
 
-const { isLoading, mutate: createProduct } = useProductCreate();
+const { isLoading: isCreateLoading, mutate: createProduct } =
+    useProductCreate();
+const { isLoading: isUpdateLoading, mutate: updateProduct } =
+    useProductUpdate();
 
 const onSubmit = (
     values: ICreateProductBody,
     { resetForm }: FormActions<ICreateProductBody>
 ) => {
-    createProduct(values, {
-        onSuccess() {
-            store.closeCreateProductModal();
-            resetForm();
-        },
-    });
+    if (store.activeProduct) {
+        updateProduct(
+            { id: store.activeProduct.id, body: values },
+            {
+                onSuccess() {
+                    store.closeModifyProductModal();
+                    resetForm();
+                },
+            }
+        );
+    } else {
+        createProduct(values, {
+            onSuccess() {
+                store.closeModifyProductModal();
+                resetForm();
+            },
+        });
+    }
 };
 </script>
 
