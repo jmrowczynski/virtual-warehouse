@@ -22,7 +22,7 @@
             />
         </div>
     </div>
-    <CreateProductModal />
+    <ModifyProductModal />
 </template>
 
 <script setup lang="ts">
@@ -32,7 +32,7 @@ import TableFilters from '@components/modules/Products/TableFilters.vue';
 import { useProductsFiltersStore } from '@/stores/useProductsFiltersStore';
 import TableView from '@components/modules/Products/TableView.vue';
 import AddIcon from '@assets/icons/plus.svg';
-import CreateProductModal from '@components/modules/Products/CreateProductModal.vue';
+import ModifyProductModal from '@components/modules/Products/ModifyProductModal.vue';
 import { store } from '@components/modules/Products/store';
 
 const productsStore = useProductsFiltersStore();
