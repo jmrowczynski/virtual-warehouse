@@ -33,9 +33,9 @@
         </tr>
     </TableComponent>
     <BasicModalView
-        :isOpen="isModalOpen && !!activeItem"
-        :title="`Usuwanie ${activeItem?.name}`"
-        :description="`Czy na pewno chcesz usunąć <strong>${activeItem?.name}</strong>?`"
+        :isOpen="store.isRemoveProductModalOpen && !!store.activeProduct"
+        :title="`Usuwanie ${store.activeProduct?.name}`"
+        :description="`Czy na pewno chcesz usunąć <strong>${store.activeProduct?.name}</strong>?`"
         :isLoading="isLoading"
         @onCloseModal="handleCloseModal"
         @onAccept="handleRemove"
@@ -48,29 +48,26 @@ import TableComponent from '@components/views/TableComponent.vue';
 import TrashIcon from '@assets/icons/trash.svg';
 import PencilIcon from '@assets/icons/pencil.svg';
 import LinkIcon from '@assets/icons/link.svg';
-import { ref } from 'vue';
 import BasicModalView from '@components/views/Modals/BasicModalView.vue';
 import useProductDelete from '@/services/api/composables/useProductDelete';
-
-const isModalOpen = ref(false);
-const activeItem = ref<IProduct | null>(null);
+import { store } from '@components/modules/Products/store';
 
 defineProps<{ data: IProductsResponse['data'] }>();
 
 const { mutate: removeProduct, isLoading } = useProductDelete();
 
 const handleRemoveClick = (value: IProduct) => {
-    isModalOpen.value = true;
-    activeItem.value = value;
+    store.setActiveProduct(value);
+    store.openRemoveProductModal();
 };
 
 const handleCloseModal = () => {
-    isModalOpen.value = false;
+    store.closeRemoveProductModal();
 };
 
 const handleRemove = () => {
-    if (activeItem.value) {
-        removeProduct(activeItem.value.id, {
+    if (store.activeProduct) {
+        removeProduct(store.activeProduct.id, {
             onSuccess() {
                 handleCloseModal();
             },
