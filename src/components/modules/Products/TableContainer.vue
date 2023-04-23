@@ -22,7 +22,7 @@
             />
         </div>
     </div>
-    <ModifyProductModal />
+    <ModifyProductModal :key="store.activeProduct?.id" />
 </template>
 
 <script setup lang="ts">
