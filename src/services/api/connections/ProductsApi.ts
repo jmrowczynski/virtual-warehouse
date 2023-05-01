@@ -14,6 +14,12 @@ class ProductsApi {
             .then((response) => response.data);
     }
 
+    static get(id: IProduct['id']): Promise<IProduct> {
+        return axiosInstance
+            .get(`/products/${id}`)
+            .then((response) => response.data);
+    }
+
     static delete(id: IProduct['id']): Promise<any> {
         return axiosInstance
             .delete(`/products/${id}`)

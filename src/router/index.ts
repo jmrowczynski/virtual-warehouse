@@ -3,6 +3,7 @@ import Login from '@/views/Login.vue';
 import Home from '@/views/Home.vue';
 import { useAuthStore } from '@/stores/useAuthStore';
 import ProductsTable from '@components/modules/Products/TableContainer.vue';
+import ProductView from '@components/modules/Product/ProductContainer.vue';
 
 const routes = [
     { path: '/', component: Login },
@@ -20,6 +21,11 @@ const routes = [
                 path: '',
                 name: 'home',
                 component: ProductsTable,
+            },
+            {
+                path: 'products/:id',
+                name: 'product',
+                component: ProductView,
             },
         ],
     },

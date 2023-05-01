@@ -23,12 +23,13 @@
                     >
                         <PencilIcon width="20" height="20" />
                     </button>
-                    <button
+                    <RouterLink
                         class="text-info hover:text-opacity-80"
                         title="Szczegóły produktu"
+                        :to="{ name: 'product', params: { id: item.id } }"
                     >
                         <LinkIcon width="16" height="16" />
-                    </button>
+                    </RouterLink>
                 </div>
             </td>
         </tr>
