@@ -1,3 +1,5 @@
+import { IHandover } from '@/services/api/types/handover';
+
 export interface IProductsResponse {
     current_page: number;
     data: IProduct[];
@@ -21,6 +23,7 @@ export interface IProduct {
     name: string;
     price: number;
     quantity: number;
+    handovers?: IHandover[];
 }
 
 export interface Link {
