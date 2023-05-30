@@ -1,7 +1,6 @@
-import { defineStore } from 'pinia';
 import { ref } from 'vue';
 
-export const useSingleProductStore = defineStore('single-product', () => {
+export const useSingleProductStore = () => {
     const isCreateHandoverModalOpen = ref(false);
 
     const handleCreateHandoverModalOpen = () => {
@@ -16,4 +15,4 @@ export const useSingleProductStore = defineStore('single-product', () => {
         handleCreateHandoverModalOpen,
         handleCreateHandoverModalClose,
     };
-});
+};

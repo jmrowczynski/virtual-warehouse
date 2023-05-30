@@ -3,10 +3,12 @@
     <div v-if="isLoading">Ładowanie...</div>
     <div v-else-if="data">
         <h1 class="text-4xl mb-8 font-semibold">Produkt: {{ data.name }}</h1>
+        <p class="text-2xl mb-4">Cena: {{ data.price }}</p>
+        <p class="text-2xl mb-8">Ilość: {{ data.quantity }}</p>
         <h2 class="text-2xl mb-4">Wydania produktu</h2>
         <button
             class="btn text-white mb-4"
-            @click="productStore.handleCreateHandoverModalOpen"
+            @click="handleCreateHandoverModalOpen"
         >
             Dodaj wydanie produktu
             <AddIcon width="20" height="20" class="ml-2" />
@@ -21,11 +23,11 @@
             </TableComponent>
         </div>
         <ModalView
-            :isOpen="productStore.isCreateHandoverModalOpen"
-            @onCloseModal="productStore.handleCreateHandoverModalClose"
+            :isOpen="isCreateHandoverModalOpen"
+            @onCloseModal="handleCreateHandoverModalClose"
             title="Utwórz wydanie produktu"
         >
-            {{ data.name }}
+            <HandoverForm :maxQuantity="data.quantity" />
         </ModalView>
     </div>
 </template>
@@ -37,12 +39,17 @@ import TableComponent from '@components/views/TableComponent.vue';
 import AddIcon from '@assets/icons/plus.svg';
 import { useSingleProductStore } from '@components/modules/Product/store';
 import ModalView from '@components/views/Modals/ModalView.vue';
+import HandoverForm from '@components/modules/Product/HandoverForm.vue';
 
 const route = useRoute();
 const router = useRouter();
 const id = Number(route.params.id);
 const { isLoading, data } = useProductQuery(id);
-const productStore = useSingleProductStore();
+const {
+    isCreateHandoverModalOpen,
+    handleCreateHandoverModalOpen,
+    handleCreateHandoverModalClose,
+} = useSingleProductStore();
 </script>
 
 <script lang="ts">
