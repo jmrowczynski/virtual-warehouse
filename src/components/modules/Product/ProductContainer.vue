@@ -3,8 +3,8 @@
     <div v-if="isLoading">Ładowanie...</div>
     <div v-else-if="data">
         <h1 class="text-4xl mb-8 font-semibold">Produkt: {{ data.name }}</h1>
-        <p class="text-2xl mb-4">Cena: {{ data.price }}</p>
-        <p class="text-2xl mb-8">Ilość: {{ data.quantity }}</p>
+        <p class="text-xl mb-4">Cena: {{ data.price }}</p>
+        <p class="text-xl mb-8">Ilość: {{ data.quantity }}</p>
         <h2 class="text-2xl mb-4">Wydania produktu</h2>
         <button
             class="btn text-white mb-4"
