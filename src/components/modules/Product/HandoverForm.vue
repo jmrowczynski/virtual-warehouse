@@ -1,7 +1,32 @@
 <template>
-    <Form v-slot="{ meta }" :validation-schema="schema">
+    <div v-if="isLoading">Ładowanie...</div>
+    <Form
+        v-else-if="data"
+        v-slot="{ meta, setFieldValue }"
+        :validation-schema="schema"
+    >
         <div class="mb-8">
             <FormInput name="quantity" placeholder="Ilość" type="number" />
+        </div>
+        <div class="mb-8 w-full">
+            <Field name="employee_id" v-slot="{ meta }">
+                <div
+                    :class="{
+                        'outline outline-1 outline-error rounded-[0.5rem]':
+                            meta.dirty && !meta.valid,
+                    }"
+                >
+                    <SelectFilter
+                        placeholder="Pracownik"
+                        :items="employees"
+                        @onChange="
+                            (value) => {
+                                setFieldValue('employee_id', value);
+                            }
+                        "
+                    />
+                </div>
+            </Field>
         </div>
         <button
             class="btn w-full"
@@ -15,11 +40,14 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{ maxQuantity: number }>();
-
+import useEmployeesQuery from '@/services/api/composables/useEmployeesQuery';
+import SelectFilter from '@components/views/Filters/SelectFilter.vue';
 import * as Yup from 'yup';
-import { Form } from 'vee-validate';
+import { Form, Field } from 'vee-validate';
 import FormInput from '@components/views/Form/FormInput.vue';
+import { computed } from 'vue';
+
+const props = defineProps<{ maxQuantity: number }>();
 
 const schema = Yup.object().shape({
     quantity: Yup.number()
@@ -31,6 +59,16 @@ const schema = Yup.object().shape({
             `Ilość może wynosić maksymalnie ${props.maxQuantity}`
         )
         .label('Ilość'),
+    employee_id: Yup.number().required('Pracownik jest wymagany'),
+});
+
+const { data, isLoading } = useEmployeesQuery();
+
+const employees = computed(() => {
+    return data?.value?.data.map((employee) => ({
+        label: employee.name,
+        value: employee.id,
+    }));
 });
 </script>
 

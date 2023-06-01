@@ -1,5 +1,5 @@
 <template>
-    <div class="dropdown">
+    <div class="dropdown w-full">
         <label
             tabindex="0"
             class="input input-bordered w-full flex items-center cursor-pointer"
@@ -13,7 +13,7 @@
             v-if="items.length"
         >
             <li :key="item.value" v-for="item in items">
-                <button @click="() => onChange(item.value)">
+                <button @click="() => onChange(item.value)" type="button">
                     {{ item.label }}
                 </button>
             </li>
