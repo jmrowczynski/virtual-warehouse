@@ -2,8 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Login from '@/views/Login.vue';
 import Home from '@/views/Home.vue';
 import { useAuthStore } from '@/stores/useAuthStore';
-import ProductsTable from '@components/modules/Products/TableContainer.vue';
-import ProductView from '@components/modules/Product/ProductContainer.vue';
+import ProductsView from '@components/modules/Products/ProductsView.vue';
+import ProductView from '@components/modules/Product/ProductView.vue';
+import HandoversView from '@components/modules/Handovers/HandoversView.vue';
 
 const routes = [
     { path: '/', component: Login },
@@ -20,12 +21,17 @@ const routes = [
             {
                 path: '',
                 name: 'home',
-                component: ProductsTable,
+                component: ProductsView,
             },
             {
                 path: 'products/:id',
                 name: 'product',
                 component: ProductView,
+            },
+            {
+                path: 'handovers',
+                name: 'handovers',
+                component: HandoversView,
             },
         ],
     },

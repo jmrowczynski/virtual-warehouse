@@ -16,7 +16,20 @@
             <label for="my-drawer" class="drawer-overlay"></label>
             <ul class="menu p-4 w-80 bg-base-300">
                 <li>
-                    <router-link to="/dashboard">Strona główna</router-link>
+                    <router-link
+                        to="/dashboard"
+                        :exact-active-class="'bg-primary-focus text-white'"
+                    >
+                        Strona główna
+                    </router-link>
+                </li>
+                <li>
+                    <router-link
+                        to="/dashboard/handovers"
+                        :exact-active-class="'bg-primary-focus text-white'"
+                    >
+                        Wydania produktów
+                    </router-link>
                 </li>
                 <li class="mt-auto">
                     <button
