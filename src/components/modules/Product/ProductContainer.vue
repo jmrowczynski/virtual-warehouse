@@ -27,7 +27,11 @@
             @onCloseModal="handleCreateHandoverModalClose"
             title="Utwórz wydanie produktu"
         >
-            <HandoverForm :maxQuantity="data.quantity" />
+            <HandoverForm
+                :maxQuantity="data.quantity"
+                :product="data"
+                :onSuccess="handleCreateHandoverModalClose"
+            />
         </ModalView>
     </div>
 </template>

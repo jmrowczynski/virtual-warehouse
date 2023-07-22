@@ -2,8 +2,9 @@
     <div v-if="isLoading">Ładowanie...</div>
     <Form
         v-else-if="data"
-        v-slot="{ meta, setFieldValue }"
+        v-slot="{ meta, setFieldValue, isSubmitting }"
         :validation-schema="schema"
+        @submit="onSubmit"
     >
         <div class="mb-8">
             <FormInput name="quantity" placeholder="Ilość" type="number" />
@@ -32,6 +33,7 @@
             class="btn w-full"
             :class="{
                 'btn-disabled': !meta.valid,
+                loading: isSubmitting,
             }"
         >
             Dodaj
@@ -43,11 +45,20 @@
 import useEmployeesQuery from '@/services/api/composables/useEmployeesQuery';
 import SelectFilter from '@components/views/Filters/SelectFilter.vue';
 import * as Yup from 'yup';
-import { Form, Field } from 'vee-validate';
+import { Form, Field, FormActions } from 'vee-validate';
 import FormInput from '@components/views/Form/FormInput.vue';
 import { computed } from 'vue';
+import useHandoverCreate from '@/services/api/composables/useHandoverCreate';
+import { ICreateHandoverBody } from '@/services/api/types/handover';
+import { IProduct } from '@/services/api/types/product';
 
-const props = defineProps<{ maxQuantity: number }>();
+const props = defineProps<{
+    maxQuantity: number;
+    product: IProduct;
+    onSuccess: () => void;
+}>();
+
+const { mutate: createHandover } = useHandoverCreate();
 
 const schema = Yup.object().shape({
     quantity: Yup.number()
@@ -70,6 +81,25 @@ const employees = computed(() => {
         value: employee.id,
     }));
 });
+
+const onSubmit = (
+    values: Omit<ICreateHandoverBody, 'product_id'>,
+    { resetForm }: FormActions<ICreateHandoverBody>
+) => {
+    createHandover(
+        {
+            ...values,
+            product_id: props.product.id,
+            quantity: Number(values.quantity),
+        },
+        {
+            onSuccess() {
+                resetForm();
+                props.onSuccess();
+            },
+        }
+    );
+};
 </script>
 
 <script lang="ts">
