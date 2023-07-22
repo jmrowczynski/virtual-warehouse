@@ -15,20 +15,12 @@
         <div class="drawer-side">
             <label for="my-drawer" class="drawer-overlay"></label>
             <ul class="menu p-4 w-80 bg-base-300">
-                <li>
+                <li v-for="link in menuLinks" :key="link.href">
                     <router-link
-                        to="/dashboard"
+                        :to="link.href"
                         :exact-active-class="'bg-primary-focus text-white'"
                     >
-                        Strona główna
-                    </router-link>
-                </li>
-                <li>
-                    <router-link
-                        to="/dashboard/handovers"
-                        :exact-active-class="'bg-primary-focus text-white'"
-                    >
-                        Wydania produktów
+                        {{ link.title }}
                     </router-link>
                 </li>
                 <li class="mt-auto">
@@ -53,6 +45,10 @@ export default {
     name: 'HomeView',
     setup() {
         const { mutate: logout, isLoading } = useLogoutMutation();
+        const menuLinks = [
+            { href: '/dashboard', title: 'Strona główna' },
+            { href: '/dashboard/handovers', title: 'Wydania produktów' },
+        ];
 
         const handleLogout = () => {
             logout(undefined, {
@@ -65,6 +61,7 @@ export default {
         return {
             logout: handleLogout,
             isLoading,
+            menuLinks,
         };
     },
 };
